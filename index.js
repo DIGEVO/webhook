@@ -19,8 +19,15 @@ server.on('request', (request, response) => {
         body = Buffer.concat(body).toString();
         // At this point, we have the headers, method, url and body, and can now
         // do whatever we need to in order to respond to this request.
-        response.writeHead(200, { "Content-Type": "text/plain" });
-        response.end(`${headers} ${method} ${url} ${body}`);
+        // response.writeHead(200, { "Content-Type": "text/plain" });
+        // response.end(`${headers} ${method} ${url} ${body}`);
+
+        response.on('error', (err) => console.error(err));
+
+        response.writeHead(200, { 'Content-Type': 'application/json' });
+
+        const responseBody = { headers, method, url, body };
+        response.end(JSON.stringify(responseBody));
     });
 });
 
