@@ -34,7 +34,7 @@ server.on('request', (request, response) => {
 
             response.writeHead(200, { 'Content-Type': 'application/json' });
 
-            body.paused = body.paused || false;
+            body['paused'] = body['paused'] || false;
             const responseBody = { url, body: body.toString() };
 
             console.log(JSON.stringify(responseBody));
