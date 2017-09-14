@@ -30,8 +30,8 @@ server.on('request', (request, response) => {
         .on('end', () => {
             const strBody = Buffer.concat(body).toString();
             //console.log(a);
-        //    body = JSON.parse(strBody.legth === 0 ? '{"id":1212}' : strBody);
-            body = Buffer.concat(body).toString();
+            body = JSON.parse(strBody === '' ? '{}' : strBody);
+        //    body = Buffer.concat(body).toString();
             console.log(body);
 
             response.on('error', handleError);
