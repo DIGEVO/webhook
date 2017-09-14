@@ -28,14 +28,13 @@ server.on('request', (request, response) => {
     request.on('error', handleError)
         .on('data', (chunk) => body.push(chunk))
         .on('end', () => {
-            body = Buffer.concat(body);
+            body = JSON.parse(Buffer.concat(body).toString());
 
             response.on('error', handleError);
-
             response.writeHead(200, { 'Content-Type': 'application/json' });
 
-            body['paused'] = body['paused'] || false;
-            const responseBody = { url, body: body.toString() };
+            body.paused = body.paused || false;
+            const responseBody = { url, body: JSON.stringify(body) };
 
             console.log(JSON.stringify(responseBody));
 
