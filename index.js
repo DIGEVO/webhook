@@ -25,7 +25,8 @@ function handleError(err) {
 server.on('request', (request, response) => {
     request.on('error', handleError);
 
-    request.pipe(request.url === '/message' ? concatOnMessage : concatOnPause);
+    //request.pipe(request.url === '/message' ? concatOnMessage : concatOnPause);
+    request.pipe(concatOnMessage);
 });
 
 // server.on('request', (request, response) => {
