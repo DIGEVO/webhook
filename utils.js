@@ -22,7 +22,7 @@ module.exports = {
     },
 
     connectBot(message) {
-        const directLineClient = utils.createClient();
+        const directLineClient = directline.createClient();
 
         directLineClient.then((client) => {
             client.Conversations.Conversations_StartConversation()
