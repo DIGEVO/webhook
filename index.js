@@ -1,12 +1,5 @@
 var http = require('http');
 
-// var server = http.createServer((request, response) => {
-
-//     response.writeHead(200, { "Content-Type": "text/plain" });
-//     response.end("Hello World!");
-
-// });
-
 const server = http.createServer();
 server.on('request', (request, response) => {
     const { headers, method, url } = request;
@@ -17,10 +10,6 @@ server.on('request', (request, response) => {
         body.push(chunk);
     }).on('end', () => {
         body = Buffer.concat(body).toString();
-        // At this point, we have the headers, method, url and body, and can now
-        // do whatever we need to in order to respond to this request.
-        // response.writeHead(200, { "Content-Type": "text/plain" });
-        // response.end(`${headers} ${method} ${url} ${body}`);
 
         response.on('error', (err) => console.error(err));
 
