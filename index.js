@@ -30,7 +30,8 @@ server.on('request', (request, response) => {
         .on('end', () => {
             const a = Buffer.concat(body).toString();
             console.log(a);
-            body = JSON.parse(a);
+           // body = JSON.parse(a);
+           body = Buffer.concat(body).toString();
 
             response.on('error', handleError);
             response.writeHead(200, { 'Content-Type': 'application/json' });
@@ -49,4 +50,4 @@ server.on('request', (request, response) => {
 var port = process.env.PORT || 1338;
 server.listen(port);
 
-console.log("Server running at http://localhost:%d", port);
+//console.log("Server running at http://localhost:%d", port);
