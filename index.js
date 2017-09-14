@@ -18,40 +18,29 @@ const server = http.createServer();
 //     console.log(JSON.stringify(responseBody));
 // }
 
-// function handleError(err) {
-//     console.error(err);
-// }
-
-// server.on('request', (request, response) => {
-//     request.on('error', handleError);
-
-//     //request.pipe(request.url === '/message' ? concatOnMessage : concatOnPause);
-//     request.pipe(concatOnMessage);
-
-//     response.writeHead(200, { 'Content-Type': 'application/json' });
-//     response.end(JSON.stringify(responseBody));
-// });
+function handleError(err) {
+    console.error(err);
+}
 
 server.on('request', (request, response) => {
     const { headers, method, url } = request;
     let body = [];
-    request.on('error', (err) => {
-        console.error(err);
-    }).on('data', (chunk) => {
-        body.push(chunk);
-    }).on('end', () => {
-        body = Buffer.concat(body).toString();
+    request.on('error', handleError)
+        .on('data', (chunk) => body.push(chunk))
+        .on('end', () => {
+            body = Buffer.concat(body).toString();
 
-        response.on('error', (err) => console.error(err));
+            response.on('error', handleError);
 
-        response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.writeHead(200, { 'Content-Type': 'application/json' });
 
-        const responseBody = { url, body };
+            body.paused = body.paused || false;
+            const responseBody = { url, body };
 
-        console.log(JSON.stringify(responseBody));
+            console.log(JSON.stringify(responseBody));
 
-        response.end(JSON.stringify(responseBody));
-    });
+            response.end(JSON.stringify(responseBody));
+        });
 });
 
 
