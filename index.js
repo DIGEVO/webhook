@@ -32,12 +32,12 @@ server.on('request', (request, response) => {
             //console.log(a);
             body = JSON.parse(strBody === '' ? '{}' : strBody);
         //    body = Buffer.concat(body).toString();
-            console.log(body);
+         //   console.log(body);
 
             response.on('error', handleError);
             response.writeHead(200, { 'Content-Type': 'application/json' });
 
-          //  body.paused = body.paused || false;
+            body.paused = body.paused || false;
             const responseBody = { url, body: JSON.stringify(body) };
 
             console.log(JSON.stringify(responseBody));
