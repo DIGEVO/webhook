@@ -16,7 +16,7 @@ module.exports = {
         body.text = body.text || null;
         body.apiKey = body.apiKey || null;
 
-        connectBot(JSON.stringify({ body: JSON.stringify(body) }));
+        module.exports.connectBot(JSON.stringify({ body: JSON.stringify(body) }));
         
         response.end();
     },
