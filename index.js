@@ -1,22 +1,21 @@
 'use strict';
 
 const http = require('http');
-// const concat = require('concat-stream');
-
 const server = http.createServer();
 
-// const concatOnMessage = concat(gotMessage);
-// const concatOnPause = concat(gotPause);
+function processMessage(strBody, response) {
+    const body = JSON.parse(!strBody ? '{}' : strBody);
+    body.paused = body.paused || false;
+    body.userId = body.userId || null;
+    body.conversationId = body.conversationId || null;
+    body.text = body.text || null;
+    body.apiKey = body.apiKey || null;
+    const responseBody = { body: JSON.stringify(body) };
 
-// function gotMessage(body) {
-//     const responseBody = { body };
-//     console.log(JSON.stringify(responseBody));
-// }
+    console.log(JSON.stringify(responseBody));
 
-// function gotPause(body) {
-//     const responseBody = { body };
-//     console.log(JSON.stringify(responseBody));
-// }
+    response.end(JSON.stringify(responseBody));
+}
 
 function handleError(err) {
     console.error(err);
@@ -29,20 +28,21 @@ server.on('request', (request, response) => {
         .on('data', (chunk) => body.push(chunk))
         .on('end', () => {
             const strBody = Buffer.concat(body).toString();
-            //console.log(a);
             body = JSON.parse(strBody === '' ? '{}' : strBody);
-        //    body = Buffer.concat(body).toString();
-         //   console.log(body);
 
             response.on('error', handleError);
             response.writeHead(200, { 'Content-Type': 'application/json' });
 
-            body.paused = body.paused || false;
-            const responseBody = { url, body: JSON.stringify(body) };
+            // body.paused = body.paused || false;
+            // body.userId = body.userId || null;
+            // body.conversationId = body.conversationId || null;
+            // body.text = body.text || null;
+            // body.apiKey = body.apiKey || null;
+            // const responseBody = { body: JSON.stringify(body) };
 
-            console.log(JSON.stringify(responseBody));
+            // console.log(JSON.stringify(responseBody));
 
-            response.end(JSON.stringify(responseBody));
+            // response.end(JSON.stringify(responseBody));
         });
 });
 
