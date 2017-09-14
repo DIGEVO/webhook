@@ -16,6 +16,9 @@ server.on('request', (request, response) => {
         response.writeHead(200, { 'Content-Type': 'application/json' });
 
         const responseBody = { headers, method, url, body };
+
+        console.log(JSON.stringify(responseBody));
+
         response.end(JSON.stringify(responseBody));
     });
 });
