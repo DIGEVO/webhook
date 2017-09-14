@@ -4,7 +4,11 @@ const http = require('http');
 const server = http.createServer();
 
 function processMessage(strBody, response) {
-    const body = JSON.parse(!strBody ? '{}' : strBody);
+    const body = JSON.parse(strBody === '' ? '{}' : strBody);
+
+    response.on('error', handleError);
+    response.writeHead(200, { 'Content-Type': 'application/json' });
+
     body.paused = body.paused || false;
     body.userId = body.userId || null;
     body.conversationId = body.conversationId || null;
@@ -28,10 +32,11 @@ server.on('request', (request, response) => {
         .on('data', (chunk) => body.push(chunk))
         .on('end', () => {
             const strBody = Buffer.concat(body).toString();
-            body = JSON.parse(strBody === '' ? '{}' : strBody);
+            processMessage(strBody, response);
+            //body = JSON.parse(strBody === '' ? '{}' : strBody);
 
-            response.on('error', handleError);
-            response.writeHead(200, { 'Content-Type': 'application/json' });
+           // response.on('error', handleError);
+           // response.writeHead(200, { 'Content-Type': 'application/json' });
 
             // body.paused = body.paused || false;
             // body.userId = body.userId || null;
