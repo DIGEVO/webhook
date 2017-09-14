@@ -27,6 +27,9 @@ server.on('request', (request, response) => {
 
     //request.pipe(request.url === '/message' ? concatOnMessage : concatOnPause);
     request.pipe(concatOnMessage);
+
+    response.writeHead(200, { 'Content-Type': 'application/json' });
+    response.end(JSON.stringify(responseBody));
 });
 
 // server.on('request', (request, response) => {
