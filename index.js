@@ -24,11 +24,11 @@ function handleError(err) {
 
 server.on('request', (request, response) => {
     const { headers, method, url } = request;
-    let body = [];
+    let arrBody = [];
     request.on('error', handleError)
-        .on('data', (chunk) => body.push(chunk))
+        .on('data', (chunk) => arrBody.push(chunk))
         .on('end', () => {
-            jsonBody = Buffer.concat(body);
+            jsonBody = Buffer.concat(arrBody);
 
             response.on('error', handleError);
 
