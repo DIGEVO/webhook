@@ -10,5 +10,8 @@
     },
     "scripts": {
         "start": "node index.js"
+    },
+    "dependencies": {
+        "concat-stream": "^1.6.0"
     }
 }
