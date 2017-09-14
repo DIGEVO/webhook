@@ -28,10 +28,10 @@ server.on('request', (request, response) => {
     request.on('error', handleError)
         .on('data', (chunk) => body.push(chunk))
         .on('end', () => {
-            const a = Buffer.concat(body).toString();
-            console.log(a);
-           // body = JSON.parse(a);
-           body = Buffer.concat(body).toString();
+            const strBody = Buffer.concat(body).toString();
+            //console.log(a);
+            body = JSON.parse(strBody.legth === 0 ? '{}' : strBody);
+            //body = Buffer.concat(body).toString();
 
             response.on('error', handleError);
             response.writeHead(200, { 'Content-Type': 'application/json' });
