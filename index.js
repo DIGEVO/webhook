@@ -24,19 +24,18 @@ function handleError(err) {
 
 server.on('request', (request, response) => {
     const { headers, method, url } = request;
-    let arrBody = [];
+    let body = [];
     request.on('error', handleError)
-        .on('data', (chunk) => arrBody.push(chunk))
+        .on('data', (chunk) => body.push(chunk))
         .on('end', () => {
-            jsonBody = Buffer.concat(arrBody);
+            body = Buffer.concat(body);
 
             response.on('error', handleError);
 
             response.writeHead(200, { 'Content-Type': 'application/json' });
 
-            jsonBody.paused = jsonBody.paused || false;
-            const body = jsonBody.toString();
-            const responseBody = { url, body };
+            body.paused = body.paused || false;
+            const responseBody = { url, body: body.toString() };
 
             console.log(JSON.stringify(responseBody));
 
