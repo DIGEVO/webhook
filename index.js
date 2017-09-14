@@ -28,7 +28,9 @@ server.on('request', (request, response) => {
     request.on('error', handleError)
         .on('data', (chunk) => body.push(chunk))
         .on('end', () => {
-            body = JSON.parse(Buffer.concat(body).toString());
+            const a = Buffer.concat(body).toString();
+            console.log(a);
+            body = JSON.parse(a);
 
             response.on('error', handleError);
             response.writeHead(200, { 'Content-Type': 'application/json' });
