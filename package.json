@@ -12,6 +12,7 @@
         "start": "node index.js"
     },
     "dependencies": {
+        "dashbot": "^9.2.0",
         "dotenv": "^4.0.0",
         "promise": "^8.0.1",
         "request": "^2.81.0",

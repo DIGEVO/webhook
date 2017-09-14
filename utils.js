@@ -15,11 +15,10 @@ module.exports = {
         body.conversationId = body.conversationId || null;
         body.text = body.text || null;
         body.apiKey = body.apiKey || null;
-        const responseBody = { body: JSON.stringify(body) };
 
-        console.log(JSON.stringify(responseBody));
-
-        response.end(JSON.stringify(responseBody));
+        connectBot(JSON.stringify({ body: JSON.stringify(body) }));
+        
+        response.end();
     },
 
     connectBot(message) {
